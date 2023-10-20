@@ -19,9 +19,4 @@ class simple_random_test extends base_test;
 		super.build_phase(phase);
 	endfunction : build_phase
 
-	//UVM run phase
-	task run_phase(uvm_phase phase);
-		`uvm_info(get_type_name(),"Starting Simple Random Sequence Test", UVM_NONE)
-	endtask : run_phase
-
 endclass : simple_random_test

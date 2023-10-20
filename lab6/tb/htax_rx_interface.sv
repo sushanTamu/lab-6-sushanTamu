@@ -36,4 +36,20 @@ always @(negedge rx_eot)
 
 //Add at least one assertion below
 
+   // ----------------------------------- 
+   // no tx_outport_req without tx_vc_req
+   // ----------------------------------- 
+   
+   property rx_vc_gnt_for_corresponding_rx_vc_req;
+      @(posedge clk) 
+	if (|rx_vc_gnt)
+      		(|rx_vc_req)  |=> (|rx_vc_gnt)
+	else
+      		~(|rx_vc_req)  |=> ~(|rx_vc_gnt);
+   endproperty
+
+   assert_rx_vc_gnt_for_corresponding_rx_vc_req : assert property(rx_vc_gnt_for_corresponding_rx_vc_req)
+   else
+      $error("HTAX_TX_INF ERROR : rx_vc_gnt not provided for the corresponding rx_vc_req");
+
 endinterface : htax_rx_interface
